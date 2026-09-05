@@ -39,6 +39,19 @@ until Phase 3 actually needs to send a verification email — no point
 creating the account or writing the integration before there's a feature
 that uses it.
 
+**Visual design: sage-paper / charcoal-ink / brass-gold, Instrument Serif +
+Work Sans.** The spec asks for premium, editorial, calm, and explicitly
+*not* hustle-culture, corporate-consulting, or generic self-help — which
+rules out the common SaaS look (blue/purple gradients, Inter, rounded
+cards everywhere) as well as the equally common "wellness app" look (warm
+cream, terracotta, big rounded pills). The palette instead pairs a
+sage-tinted neutral paper with deep charcoal ink and a single restrained
+brass/gold accent — warm and human without being twee. Layout leans on
+generous whitespace and hairline rules rather than boxed cards, and the
+four dimensions are presented as an editorial index (a stacked list with
+labels and links) rather than four identical icon cards, per the spec's
+explicit instruction not to default to that pattern.
+
 ## Needs your input (not blocking, cheap to answer whenever)
 
 1. **Supabase project region.** Pick whichever is closest to where most of
