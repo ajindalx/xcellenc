@@ -1,0 +1,60 @@
+# Decisions
+
+Lightweight decision log. Per the project's own rule: default sensibly and
+document rather than asking about things that don't materially matter; ask
+only where cost, design, functionality, privacy, UX, data ownership, or
+business model are actually affected.
+
+## Decided (no input needed)
+
+**Package manager: pnpm.** Faster installs, less disk usage than npm/yarn,
+no material difference to you day-to-day.
+
+**Modular monolith, one Next.js app.** Matches the spec directly; also the
+only sane choice at this scale/budget (Section 36 of the spec rules out
+microservices/Kubernetes/Redis/queues anyway).
+
+**Article content stored as Tiptap JSON, not HTML.** Avoids
+`dangerouslySetInnerHTML` on user-authored content entirely — a whole class
+of XSS risk removed structurally instead of managed by sanitization. Full
+reasoning in `docs/ARCHITECTURE.md`.
+
+**Roles in a separate `user_roles` table, not a column on `profiles`, with
+no self-service write policy.** Makes "a member grants themselves admin"
+impossible at the schema level rather than relying on every code path
+remembering to check. Full reasoning in `docs/DATABASE.md`.
+
+**Circle profile data and future Connections data as structurally separate
+tables from day one.** Directly required by the spec's privacy principle
+(Section 34) — a public-profile query has no table to accidentally
+over-select from.
+
+**Testing: Vitest for unit tests, Playwright for auth/authorization
+end-to-end flows.** Both are free, standard for this stack, and Playwright
+is the right tool specifically for testing "can member A edit member B's
+draft" style authorization tests end-to-end.
+
+**Email: Resend, behind a small `lib/email` abstraction.** Not wired up
+until Phase 3 actually needs to send a verification email — no point
+creating the account or writing the integration before there's a feature
+that uses it.
+
+## Needs your input (not blocking, cheap to answer whenever)
+
+1. **Supabase project region.** Pick whichever is closest to where most of
+   your early members/readers will actually be (e.g. US East, EU West). If
+   you don't know yet, US East is a reasonable default and easy to change
+   before you have real data in it — hard to change after.
+2. **Domain name.** Do you already own one for XCELLENC, or is that still
+   to be registered? Not needed until Phase 9, but worth knowing early in
+   case DNS or trademark checks turn up an issue.
+
+Neither of these blocks any work between now and Phase 9.
+
+## Open problem (blocking)
+
+**Node.js is not installed on this machine.** Nothing in the JavaScript
+toolchain (`next`, `npm`/`pnpm`, the scaffold itself) can run without it —
+there's no version manager (`nvm`/`fnm`/`volta`) and no Homebrew present
+either, so this needs one deliberate install step before Phase 0's scaffold
+can proceed. See the chat for the recommended fix and why.

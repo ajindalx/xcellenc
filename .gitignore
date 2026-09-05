@@ -1,0 +1,28 @@
+# Node
+node_modules/
+.pnpm-store/
+
+# Next.js
+.next/
+out/
+build/
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Supabase local
+supabase/.branches/
+supabase/.temp/
+
+# Testing
+coverage/
+playwright-report/
+test-results/
+
+# Editor / OS
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+*.log
