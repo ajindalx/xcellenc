@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>xcellenc</title>
+<meta name="description" content="A field kit of tools and templates for surveying, plotting, and holding a bearing on your personal and professional growth." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --paper: #ECF0E5;
+    --paper-raised: #E1E8D6;
+    --paper-line: #D7E0C9;
+    --ink: #1B241D;
+    --ink-soft: #55634F;
+    --ink-faint: #7C8A75;
+    --rule: #C3CDB3;
+    --accent: #9C5A22;
+    --accent-bright: #B5651D;
+    --on-accent: #F7F1E4;
+    --shadow: 0 1px 0 rgba(27,36,29,0.06);
+    --serif: "Fraunces", "Iowan Old Style", Georgia, serif;
+    --sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper: #10140C;
+      --paper-raised: #171C11;
+      --paper-line: #232B19;
+      --ink: #E9EEDD;
+      --ink-soft: #9FAD90;
+      --ink-faint: #6E7C63;
+      --rule: #313D26;
+      --accent: #E3A051;
+      --accent-bright: #EFB06A;
+      --on-accent: #1B1508;
+      --shadow: 0 1px 0 rgba(0,0,0,0.4);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper: #10140C;
+    --paper-raised: #171C11;
+    --paper-line: #232B19;
+    --ink: #E9EEDD;
+    --ink-soft: #9FAD90;
+    --ink-faint: #6E7C63;
+    --rule: #313D26;
+    --accent: #E3A051;
+    --accent-bright: #EFB06A;
+    --on-accent: #1B1508;
+    --shadow: 0 1px 0 rgba(0,0,0,0.4);
+  }
+
+  *{ box-sizing: border-box; }
+  html{ -webkit-text-size-adjust: 100%; }
+  body{
+    margin:0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,h2,h3{ font-family: var(--serif); color: var(--ink); margin:0; text-wrap: balance; }
+  p{ margin:0; }
+  a{ color: inherit; }
+  ::selection{ background: var(--accent-bright); color: var(--on-accent); }
+  :focus-visible{ outline: 2px solid var(--accent-bright); outline-offset: 3px; }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+
+  .wrap{ max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+
+  .eyebrow{
+    font-family: var(--mono);
+    font-size: 12.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-bright);
+    margin: 0 0 14px;
+  }
+
+  /* Nav */
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 22px 28px;
+    max-width: 1120px; margin: 0 auto;
+    gap: 20px;
+  }
+  .wordmark{ display:flex; align-items:center; gap:10px; font-family: var(--mono); font-weight:600; font-size:17px; letter-spacing: 0.02em; }
+  .wordmark svg{ width:22px; height:22px; flex-shrink:0; }
+  .nav-links{ display:flex; gap: 28px; list-style:none; margin:0; padding:0; font-size: 14.5px; }
+  .nav-links a{ text-decoration:none; color: var(--ink-soft); border-bottom: 1px solid transparent; padding-bottom:2px; transition: color .15s, border-color .15s; }
+  .nav-links a:hover{ color: var(--ink); border-color: var(--rule); }
+  .nav-right{ display:flex; align-items:center; }
+  @media (max-width: 720px){ .nav-links{ display:none; } }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family: var(--mono); font-size: 13.5px; font-weight:500;
+    letter-spacing: 0.02em;
+    padding: 11px 20px;
+    border-radius: 3px;
+    text-decoration:none;
+    white-space: nowrap;
+    transition: transform .15s ease, background .15s ease, border-color .15s ease;
+  }
+  .btn:hover{ transform: translateY(-1px); }
+  .btn-solid{ background: var(--accent); color: var(--on-accent); border: 1px solid var(--accent); }
+  .btn-solid:hover{ background: var(--accent-bright); border-color: var(--accent-bright); }
+  .btn-line{ background: transparent; color: var(--ink); border: 1px solid var(--rule); }
+  .btn-line:hover{ border-color: var(--ink-soft); }
+
+  /* Hero */
+  .hero{ position: relative; overflow: hidden; border-bottom: 1px solid var(--rule); }
+  .hero-inner{
+    position: relative; z-index: 2;
+    max-width: 1120px; margin:0 auto; padding: 64px 28px 88px;
+    display:grid; grid-template-columns: 1.15fr 0.85fr; gap: 56px; align-items:center;
+  }
+  .hero h1{ font-size: clamp(40px, 6vw, 68px); font-weight:600; line-height: 1.03; letter-spacing: -0.01em; }
+  .hero h1 em{ font-style: italic; font-weight: 500; color: var(--accent); }
+  .lede{ margin-top: 22px; max-width: 46ch; font-size: 17.5px; color: var(--ink-soft); }
+  .cta-row{ display:flex; gap:14px; margin-top: 34px; flex-wrap: wrap; }
+  .contour-bg{ position:absolute; inset:0; width:100%; height:100%; z-index:1; opacity:0.55; }
+
+  .instrument-panel{
+    position: relative;
+    background: var(--paper-raised);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 26px 24px 22px;
+  }
+  .instrument-panel::before, .instrument-panel::after{ content:""; position:absolute; width:11px; height:11px; }
+  .instrument-panel::before{ top:-1px; left:-1px; border-top:2px solid var(--accent-bright); border-left:2px solid var(--accent-bright); }
+  .instrument-panel::after{ bottom:-1px; right:-1px; border-bottom:2px solid var(--accent-bright); border-right:2px solid var(--accent-bright); }
+  .readout{ font-family: var(--mono); font-size: 12.5px; color: var(--ink-soft); display:flex; justify-content:space-between; margin-top:18px; padding-top:14px; border-top: 1px dashed var(--rule); }
+  .readout b{ color: var(--ink); font-weight:600; font-variant-numeric: tabular-nums; }
+
+  @media (max-width: 860px){
+    .hero-inner{ grid-template-columns: 1fr; padding-top: 44px; padding-bottom: 56px; }
+  }
+
+  /* Section scaffolding */
+  section{ padding: 92px 0; border-bottom: 1px solid var(--rule); }
+  section:last-of-type{ border-bottom:none; }
+  .section-head{ max-width: 640px; margin-bottom: 52px; }
+  .section-head h2{ font-size: clamp(28px, 3.4vw, 38px); font-weight:600; letter-spacing:-0.01em; }
+  .section-head p{ margin-top:14px; color: var(--ink-soft); font-size: 16.5px; max-width: 58ch; }
+
+  /* Method */
+  .waypoints{ display:grid; grid-template-columns: repeat(3, 1fr); gap:22px; }
+  .waypoint{ padding: 26px 22px; }
+  .waypoint .wp-num{ font-family: var(--mono); font-size: 13px; color: var(--accent-bright); letter-spacing:0.06em; }
+  .waypoint h3{ font-size: 21px; font-weight:600; margin-top:12px; }
+  .waypoint p{ margin-top:10px; color: var(--ink-soft); font-size: 15px; }
+  @media (max-width: 860px){ .waypoints{ grid-template-columns: 1fr; } }
+
+  /* Instruments grid */
+  .grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .inst-card{ padding: 28px 24px; display:flex; flex-direction:column; gap:12px; }
+  .inst-card .tag{ font-family: var(--mono); font-size:12.5px; color: var(--ink-faint); letter-spacing:0.08em; }
+  .inst-card h3{ font-size: 21px; font-weight:600; }
+  .inst-card p{ color: var(--ink-soft); font-size: 15px; }
+  @media (max-width: 860px){ .grid{ grid-template-columns: 1fr; } }
+
+  /* Chart list */
+  .chart-list{ border-top: 1px solid var(--rule); }
+  .chart-row{
+    display:grid; grid-template-columns: 90px 1fr 120px 100px; align-items:center;
+    gap: 18px; padding: 20px 4px; border-bottom: 1px solid var(--rule);
+  }
+  .chart-row .num{ font-family: var(--mono); font-size:13px; color: var(--ink-faint); }
+  .chart-row .name{ font-weight:600; font-size: 16.5px; }
+  .chart-row .desc{ display:block; font-weight:400; font-size:14px; color: var(--ink-soft); margin-top:4px; }
+  .chart-row .format{ font-family: var(--mono); font-size:12.5px; color: var(--ink-soft); text-transform:uppercase; letter-spacing:0.06em; }
+  .chart-row .get{ font-family: var(--mono); font-size:13px; color: var(--accent-bright); text-decoration:none; text-align:right; justify-self:end; }
+  .chart-row .get:hover{ text-decoration: underline; }
+  @media (max-width: 720px){
+    .chart-row{ grid-template-columns: 1fr; gap:6px; }
+    .chart-row .get{ justify-self:start; }
+  }
+
+  /* Trajectory */
+  .trajectory-panel{ padding: 8px 8px 4px; }
+  .trajectory-panel svg{ width:100%; height:auto; display:block; }
+  .trajectory-note{ margin-top:18px; font-size: 13.5px; color: var(--ink-faint); font-family: var(--mono); }
+
+  /* CTA band */
+  .cta-band{ text-align:center; }
+  .cta-band h2{ font-size: clamp(30px, 4vw, 44px); font-weight:600; max-width: 20ch; margin:0 auto; }
+  .cta-band p{ margin: 18px auto 0; max-width: 48ch; color: var(--ink-soft); font-size:16.5px; }
+  .cta-band .cta-row{ justify-content:center; margin-top: 30px; }
+
+  /* Footer */
+  footer{ padding: 44px 0 56px; }
+  .legend{ display:flex; align-items:center; gap: 28px; flex-wrap:wrap; padding-bottom: 26px; border-bottom: 1px solid var(--rule); margin-bottom: 22px; }
+  .legend-key{ display:flex; align-items:center; gap:8px; font-family: var(--mono); font-size:12.5px; color: var(--ink-soft); }
+  .legend-key .dot{ width:8px; height:8px; border-radius:50%; background: var(--accent-bright); }
+  .scale-bar{ margin-left:auto; display:flex; align-items:center; gap:8px; font-family: var(--mono); font-size:11.5px; color: var(--ink-faint); }
+  .scale-bar .ticks{ width:120px; height:6px; background:
+      repeating-linear-gradient(to right, var(--ink-faint) 0, var(--ink-faint) 1px, transparent 1px, transparent 20%);
+      background-position: bottom; background-size: 100% 1px; background-repeat: no-repeat;
+      border-left:1px solid var(--ink-faint); border-right:1px solid var(--ink-faint);
+  }
+  .foot-row{ display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px; }
+  .foot-brand{ font-family: var(--mono); font-size:13px; color: var(--ink-soft); }
+  .foot-links{ display:flex; gap:20px; list-style:none; padding:0; margin:0; font-size:13.5px; }
+  .foot-links a{ color: var(--ink-soft); text-decoration:none; }
+  .foot-links a:hover{ color: var(--ink); }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wordmark">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="12" cy="12" r="10.5" stroke="var(--accent-bright)" stroke-width="1.2"/>
+      <path d="M12 2.5V6M12 18V21.5M2.5 12H6M18 12H21.5" stroke="var(--accent-bright)" stroke-width="1.2"/>
+      <path d="M12 6L14 12L12 18L10 12L12 6Z" fill="var(--accent-bright)"/>
+    </svg>
+    xcellenc
+  </div>
+  <ul class="nav-links">
+    <li><a href="#method">Method</a></li>
+    <li><a href="#instruments">Instruments</a></li>
+    <li><a href="#charts">Charts</a></li>
+  </ul>
+  <div class="nav-right">
+    <a class="btn btn-line" href="#start">Start the survey</a>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero" id="top">
+    <svg class="contour-bg" viewBox="0 0 1120 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g fill="none" stroke="var(--rule)" stroke-width="1">
+        <path d="M900,-40 C 1050,60 1080,180 980,260 C 880,340 950,430 1080,470 L1180,600 L1180,-40 Z" />
+        <path d="M950,-40 C 1080,80 1120,190 1010,280 C 900,370 970,450 1120,500" />
+        <path d="M1000,-40 C 1110,100 1150,210 1040,300 C 950,380 1000,460 1140,520" />
+        <path d="M1050,-40 C 1140,120 1180,230 1080,320 C 1000,390 1030,470 1160,540" />
+      </g>
+    </svg>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p class="eyebrow">Field manual &middot; personal &amp; career excellence</p>
+        <h1>Stop drifting.<br>Start <em>plotting</em>.</h1>
+        <p class="lede">xcellenc is a field kit of instruments and charts for people who treat their career and their character like terrain worth surveying &mdash; properly measured, plotted, and held to a bearing.</p>
+        <div class="cta-row">
+          <a class="btn btn-solid" href="#instruments">Open the field kit</a>
+          <a class="btn btn-line" href="#method">See the method</a>
+        </div>
+      </div>
+      <div class="hero-instrument">
+        <div class="instrument-panel">
+          <svg viewBox="0 0 200 200" aria-hidden="true">
+            <circle cx="100" cy="100" r="86" fill="none" stroke="var(--rule)" stroke-width="1.5"/>
+            <circle cx="100" cy="100" r="62" fill="none" stroke="var(--rule)" stroke-width="1"/>
+            <g stroke="var(--ink-faint)" stroke-width="1">
+              <line x1="100" y1="14" x2="100" y2="26"/>
+              <line x1="100" y1="174" x2="100" y2="186"/>
+              <line x1="14" y1="100" x2="26" y2="100"/>
+              <line x1="174" y1="100" x2="186" y2="100"/>
+            </g>
+            <g font-family="IBM Plex Mono" font-size="11" fill="var(--ink-soft)" text-anchor="middle">
+              <text x="100" y="10">N</text>
+              <text x="100" y="197">S</text>
+              <text x="8" y="104">W</text>
+              <text x="192" y="104">E</text>
+            </g>
+            <g transform="rotate(42 100 100)">
+              <polygon points="100,32 108,100 100,108 92,100" fill="var(--accent-bright)"/>
+              <polygon points="100,168 108,100 100,92 92,100" fill="var(--ink-faint)"/>
+            </g>
+            <circle cx="100" cy="100" r="4.5" fill="var(--ink)"/>
+          </svg>
+          <div class="readout">
+            <span>BEARING<br><b>N 42&deg; E</b></span>
+            <span>POSITION<br><b>FIXED</b></span>
+            <span>DRIFT<br><b>0.4&deg;</b></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="method" id="method">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">The method</p>
+        <h2>Three fixes, one bearing.</h2>
+        <p>Every instrument and chart in the kit exists to serve one of these three moves. Skip one and the other two drift.</p>
+      </div>
+      <div class="waypoints">
+        <div class="waypoint instrument-panel">
+          <span class="wp-num">WP.01 &mdash; FIX YOUR POSITION</span>
+          <h3>Take stock before you take action.</h3>
+          <p>A blunt audit of where you actually stand &mdash; skills, hours, energy, direction &mdash; run with the Position Fix worksheet before any goal gets set.</p>
+        </div>
+        <div class="waypoint instrument-panel">
+          <span class="wp-num">WP.02 &mdash; PLOT THE ROUTE</span>
+          <h3>Turn the audit into a course.</h3>
+          <p>Set a 90-day heading with the Career Blueprint, broken into legs short enough that you can actually walk one this week.</p>
+        </div>
+        <div class="waypoint instrument-panel">
+          <span class="wp-num">WP.03 &mdash; HOLD THE BEARING</span>
+          <h3>Small corrections beat big overhauls.</h3>
+          <p>The Weekly Review Log keeps you honest about drift, so you correct course in inches on Friday instead of in miles next year.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="instruments" id="instruments">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Instruments</p>
+        <h2>Tools built to be used, not admired.</h2>
+        <p>Four working instruments. Each does one job well and reports back in numbers you can act on.</p>
+      </div>
+      <div class="grid">
+        <div class="inst-card instrument-panel">
+          <span class="tag">INS.01 &middot; GOAL-SETTING</span>
+          <h3>Goal Compass</h3>
+          <p>A single-page instrument that forces one direction, one bearing, one deadline per quarter &mdash; no more than that fits on the page, on purpose.</p>
+        </div>
+        <div class="inst-card instrument-panel">
+          <span class="tag">INS.02 &middot; TIME</span>
+          <h3>Time Audit</h3>
+          <p>Log a week in 30-minute legs to see where your hours actually drift, versus where you'd swear they go.</p>
+        </div>
+        <div class="inst-card instrument-panel">
+          <span class="tag">INS.03 &middot; SKILLS</span>
+          <h3>Skill Gap Analyzer</h3>
+          <p>Score your current role against the one you want, instrument by instrument, so the gap is a list and not a feeling.</p>
+        </div>
+        <div class="inst-card instrument-panel">
+          <span class="tag">INS.04 &middot; JUDGMENT</span>
+          <h3>Decision Journal</h3>
+          <p>Log the call, the reasoning, and the outcome. Six months later, hindsight finally has something to teach you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="charts" id="charts">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Charts &amp; templates</p>
+        <h2>Documents that already know the shape of the work.</h2>
+        <p>Ready-made charts for the moves you'll make on repeat &mdash; fill them in rather than build them from scratch every quarter.</p>
+      </div>
+      <div class="chart-list">
+        <div class="chart-row">
+          <span class="num">CHT.01</span>
+          <span class="name">90-Day Career Blueprint<span class="desc">Turns one goal into weekly legs with checkpoints.</span></span>
+          <span class="format">Doc</span>
+          <a class="get" href="#start">Get it &rarr;</a>
+        </div>
+        <div class="chart-row">
+          <span class="num">CHT.02</span>
+          <span class="name">Quarterly OKR Chart<span class="desc">Objectives, key results, and a confidence score per line.</span></span>
+          <span class="format">Sheet</span>
+          <a class="get" href="#start">Get it &rarr;</a>
+        </div>
+        <div class="chart-row">
+          <span class="num">CHT.03</span>
+          <span class="name">Weekly Review Log<span class="desc">Fifteen minutes on Friday to catch drift early.</span></span>
+          <span class="format">Doc</span>
+          <a class="get" href="#start">Get it &rarr;</a>
+        </div>
+        <div class="chart-row">
+          <span class="num">CHT.04</span>
+          <span class="name">Career Trajectory Map<span class="desc">Plots two years back and two years forward on one page.</span></span>
+          <span class="format">Doc</span>
+          <a class="get" href="#start">Get it &rarr;</a>
+        </div>
+        <div class="chart-row">
+          <span class="num">CHT.05</span>
+          <span class="name">Habit Tracker<span class="desc">A grid built for streaks that survive a bad week.</span></span>
+          <span class="format">Sheet</span>
+          <a class="get" href="#start">Get it &rarr;</a>
+        </div>
+        <div class="chart-row">
+          <span class="num">CHT.06</span>
+          <span class="name">Annual Review Deck<span class="desc">The slides for the conversation you have with yourself in December.</span></span>
+          <span class="format">Slides</span>
+          <a class="get" href="#start">Get it &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="trajectory">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Example route</p>
+        <h2>What holding a bearing looks like over two years.</h2>
+        <p>An illustrative route through the field kit &mdash; not your data, but the shape most people's actually takes: a stall, a reset, then a longer run.</p>
+      </div>
+      <div class="trajectory-panel instrument-panel">
+        <svg viewBox="0 0 760 340" role="img" aria-label="Line chart of capability elevation across eight quarters, rising from 18 to 78 with a stall at quarter three and a dip at quarter six.">
+          <g font-family="IBM Plex Mono" font-size="11" fill="var(--ink-faint)">
+            <text x="34" y="44" text-anchor="end">100</text>
+            <text x="34" y="102" text-anchor="end">75</text>
+            <text x="34" y="160" text-anchor="end">50</text>
+            <text x="34" y="218" text-anchor="end">25</text>
+            <text x="34" y="276" text-anchor="end">0</text>
+          </g>
+          <g stroke="var(--rule)" stroke-width="1">
+            <line x1="44" y1="40" x2="720" y2="40" />
+            <line x1="44" y1="98" x2="720" y2="98" />
+            <line x1="44" y1="156" x2="720" y2="156" />
+            <line x1="44" y1="214" x2="720" y2="214" />
+            <line x1="44" y1="272" x2="720" y2="272" />
+          </g>
+          <polyline points="70,225 168,178 266,194 364,145 462,99 560,111 658,55 720,25"
+            fill="none" stroke="var(--accent-bright)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <g fill="var(--accent-bright)">
+            <circle cx="70" cy="225" r="4"/>
+            <circle cx="168" cy="178" r="4"/>
+            <circle cx="266" cy="194" r="4"/>
+            <circle cx="364" cy="145" r="4"/>
+            <circle cx="462" cy="99" r="4"/>
+            <circle cx="560" cy="111" r="4"/>
+            <circle cx="658" cy="55" r="4"/>
+            <circle cx="720" cy="25" r="4.5"/>
+          </g>
+          <g font-family="IBM Plex Mono" font-size="11.5" fill="var(--ink-soft)" text-anchor="middle">
+            <text x="70" y="296">Q1</text>
+            <text x="168" y="296">Q2</text>
+            <text x="266" y="296">Q3</text>
+            <text x="364" y="296">Q4</text>
+            <text x="462" y="296">Q5</text>
+            <text x="560" y="296">Q6</text>
+            <text x="658" y="296">Q7</text>
+            <text x="720" y="296">Q8</text>
+          </g>
+          <g font-family="IBM Plex Sans" font-size="12.5" fill="var(--ink)">
+            <text x="266" y="322" text-anchor="middle">Held the bearing through a stall</text>
+            <text x="560" y="132" text-anchor="middle">New role, reset the fix</text>
+            <text x="655" y="30" text-anchor="end">Target elevation reached</text>
+          </g>
+          <g stroke="var(--ink-faint)" stroke-width="1" stroke-dasharray="2,2">
+            <line x1="266" y1="194" x2="266" y2="310"/>
+            <line x1="560" y1="111" x2="560" y2="122"/>
+          </g>
+        </svg>
+        <p class="trajectory-note">Y-axis: capability elevation, indexed 0&ndash;100. Composite illustration, not a live user's record.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band" id="start">
+    <div class="wrap">
+      <h2>The terrain doesn't survey itself.</h2>
+      <p>Get the full field kit &mdash; four instruments, six charts, one method &mdash; free while xcellenc is in its first printing.</p>
+      <div class="cta-row">
+        <a class="btn btn-solid" href="#instruments">Open the field kit</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="legend">
+      <span class="legend-key"><span class="dot"></span>Method</span>
+      <span class="legend-key"><span class="dot"></span>Instruments</span>
+      <span class="legend-key"><span class="dot"></span>Charts</span>
+      <span class="scale-bar">SCALE<span class="ticks"></span>1 : QUARTER</span>
+    </div>
+    <div class="foot-row">
+      <span class="foot-brand">xcellenc &mdash; field kit for personal &amp; professional excellence</span>
+      <ul class="foot-links">
+        <li><a href="#method">Method</a></li>
+        <li><a href="#instruments">Instruments</a></li>
+        <li><a href="#charts">Charts</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
