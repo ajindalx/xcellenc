@@ -1,28 +1,42 @@
-# Node
-node_modules/
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
 .pnpm-store/
 
-# Next.js
-.next/
-out/
-build/
+# next.js
+/.next/
+/out/
 
-# Env
+# production
+/build
+
+# testing
+/coverage
+playwright-report/
+test-results/
+
+# supabase local
+supabase/.branches/
+supabase/.temp/
+
+# env — never commit real secrets
 .env
 .env.local
 .env.*.local
 
-# Supabase local
-supabase/.branches/
-supabase/.temp/
+# vercel
+.vercel
 
-# Testing
-coverage/
-playwright-report/
-test-results/
+# typescript
+*.tsbuildinfo
 
-# Editor / OS
+# misc
 .DS_Store
+*.pem
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
 .vscode/*
 !.vscode/extensions.json
-*.log

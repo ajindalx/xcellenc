@@ -1,3 +1,5 @@
+@AGENTS.md
+
 # CLAUDE.md — Project Rules for XCELLENC
 
 Persistent rules for working on this codebase. Keep this file short — product
