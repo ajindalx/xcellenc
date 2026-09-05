@@ -14,9 +14,9 @@ things stand.
 
 ## Status
 
-**Phase 0 — Foundation.** The Next.js application hasn't been scaffolded
-yet (see "Local development" below for the current blocker). Nothing here
-is live yet.
+**Phase 0 — Foundation.** The Next.js application is scaffolded and
+verified (build/lint/typecheck all pass), but there's no real product code
+yet — Phase 1 builds the actual homepage and public pages.
 
 > `docs/design-reference/landing-page-sample.html` is an early, standalone
 > design exploration built before this fuller specification existed. It's
@@ -26,15 +26,21 @@ is live yet.
 
 ## Local development
 
-Not runnable yet. **Node.js is not currently installed on this machine**,
-which blocks scaffolding the app at all. Once that's resolved and the
-project is scaffolded, this section will list the exact commands to:
+Requires Node.js (installed via [nvm](https://github.com/nvm-sh/nvm) on
+this machine — run `nvm use --lts` in a new terminal if `node`/`pnpm`
+aren't found) and [pnpm](https://pnpm.io) (bundled with Node via Corepack).
 
-1. install dependencies
-2. set environment variables
-3. run the app locally
-4. run tests
-5. build for production
+```bash
+pnpm install       # install dependencies
+pnpm dev           # run the app at http://localhost:3000
+pnpm lint          # check code style
+pnpm typecheck     # check TypeScript types
+pnpm build         # build for production
+```
+
+There are no environment variables to set yet — those arrive with Supabase
+in Phase 2, and will be documented here with exact instructions when they
+do.
 
 ## Supabase / Vercel setup
 

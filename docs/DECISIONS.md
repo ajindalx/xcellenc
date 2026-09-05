@@ -51,10 +51,10 @@ that uses it.
 
 Neither of these blocks any work between now and Phase 9.
 
-## Open problem (blocking)
+## Resolved
 
-**Node.js is not installed on this machine.** Nothing in the JavaScript
-toolchain (`next`, `npm`/`pnpm`, the scaffold itself) can run without it —
-there's no version manager (`nvm`/`fnm`/`volta`) and no Homebrew present
-either, so this needs one deliberate install step before Phase 0's scaffold
-can proceed. See the chat for the recommended fix and why.
+**Node.js was not installed on this machine.** Fixed by installing `nvm`
+(Node Version Manager) and Node LTS (v24.20.0) through it — no admin
+password needed, and future Node upgrades are a one-line `nvm install`
+rather than a system-level reinstall. `pnpm` is managed through Corepack,
+which ships with Node itself.

@@ -25,15 +25,16 @@ Deliverables:
 - [x] `CLAUDE.md`
 - [x] This plan
 - [x] `docs/DECISIONS.md`
-- [ ] Next.js project scaffold — **blocked: Node.js is not installed on this
-      machine.** See `docs/DECISIONS.md` for the fix.
-- [ ] Design tokens + base layout — starts once the scaffold exists
+- [x] Next.js project scaffold (Next.js 16, React 19, TypeScript,
+      Tailwind CSS 4, pnpm) — Node.js installed via nvm, build/lint/typecheck
+      all verified passing
+- [ ] Design tokens + base layout — starts Phase 1
 
 ## Open items before Phase 1 can start
 
-1. Node.js installed (blocking the scaffold itself).
-2. Confirm the decisions listed in `docs/DECISIONS.md` under "Needs your
-   input" — none are blocking, but cheap to settle now.
+None blocking. Optionally confirm the two items in `docs/DECISIONS.md`
+under "Needs your input" (Supabase region, domain name) whenever
+convenient — neither holds up Phase 1.
 
 ## Accounts to create (no rush — noted by the phase that first needs them)
 
